@@ -1,0 +1,181 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.select-container {
+    margin-bottom: 7px; /* Add some spacing between the select elements */
+}
+
+
+
+body{
+    font-family: 'Anton', sans-serif;
+    background-image: linear-gradient( rgba(0,0,0,0.2),rgba(0,0,0,0.1)),  url("https://hips.hearstapps.com/hmg-prod/images/indy-sunday-crowd-1613595956.jpg");
+    background-size: cover;
+    background-position:center;
+    background-attachment: fixed;
+    
+  
+}
+
+
+select{
+    font-family: 'Anton', sans-serif;
+    margin-bottom:20px ;
+    font-size:23px ;
+    margin-top: 10px;
+    padding:5px;
+    border-radius: 15px;
+    
+    
+}
+
+.title{
+    display: flex;
+}
+
+.gif{
+    
+    width:100px;
+    height: 90px;
+}
+
+h1{
+    font-size:40px ;
+    color:black;
+    
+}
+
+img{
+    height:300px;
+    width:480px;
+    border-radius: 10px;
+
+}
+
+.reset{
+    font-family: 'Anton', sans-serif;
+    color: white;
+    background:red;
+    border: red;
+    width:100px ;
+    text-decoration: none;
+    text-shadow: 0px 3px rgba(0,0,0,0.2);
+    border-radius: 10px ;
+    padding: 9px 25px;
+    font-weight: 500;
+    margin-right: 40px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    cursor:pointer;
+    -webkit-transition-duration: .3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property:box-shadow, transform ;
+    transition-property: box-shadow, transform;
+    margin-bottom: 10px;
+
+    
+}
+
+button:hover, button:focus, button:active{
+    box-shadow: 0,0,0 20px rgba(0,0,0,0.5);
+    webkit-transform:scale(1.1);
+    transform:scale(1.1)
+}
+
+#imageContainer{
+    position: relative;
+    height:300px;
+    width:480px;
+
+
+}
+
+#goButton{
+    font-family: 'Anton', sans-serif;
+    font-size: 15px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    background:green;
+    border: green;
+    width:75px ;
+    text-decoration: none;
+    text-shadow: 0px 3px rgba(0,0,0,0.2);
+    border-radius: 10px ;
+    padding: 9px 25px;
+    font-weight: 500;
+    margin-right: 40px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    cursor:pointer;
+    -webkit-transition-duration: .3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property:box-shadow, transform ;
+    transition-property: box-shadow, transform;
+    margin-bottom: 10px;
+
+    
+}
+
+#goButton:hover, #goButton:focus, #goButton:active{
+    box-shadow: 0,0,0 20px rgba(0,0,0,0.5);
+    webkit-transform:scale(1.1);
+    transform:scale(1.1)
+}
+
+
+#form{
+
+    margin-top: 50px;
+    border-radius: 15px;
+    font-size: 30px;
+    padding:20px ;
+    border: 6px solid black;
+}
+
+#form input{
+    border-radius: 15px;
+    padding:10px;
+    opacity: 100%;
+    
+}
+
+#form p{
+    color:red;
+}
+
+
+legend{
+    text-align: center;
+    padding-bottom: 10px;
+
+}
+
+#submit{
+    font-family: 'Anton', sans-serif;
+    font-size: 15px;
+    opacity: 100%;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    background:green;
+    border: green;
+    width:75px ;
+    text-decoration: none;
+    text-shadow: 0px 3px rgba(0,0,0,0.2);
+    border-radius: 10px ;
+    padding: 9px 25px;
+    
+    
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    cursor:pointer;
+    -webkit-transition-duration: .3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property:box-shadow, transform ;
+    transition-property: box-shadow, transform;
+    margin-bottom: 10px; 
+}
+
+#submit:hover, #submit:focus, #submit:active{
+    box-shadow: 0,0,0 20px rgba(0,0,0,0.5);
+    webkit-transform:scale(1.1);
+    transform:scale(1.1);
+}

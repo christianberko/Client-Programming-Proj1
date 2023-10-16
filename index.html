@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <link rel = "stylesheet" href="styles.css">
+   
+    <script>
+        var carModels = {
+            "Ford": ["Mustang"],
+            "Chevrolet": ["Camaro", "Corvette"],
+            "Dodge": ["Challenger", "Charger"]
+        };
+
+        var carEras = {
+            "Mustang": [ "1979-1993", "1994-2004", "2005-2014", "2015-2021" ],
+            "Camaro": [ "1993-2002", "2010-2015", "2016 - present"],
+            "Corvette": [ "1984-1996", "1997-2004", "2005-2013", "2014-2019", "2019-present"],
+            "Challenger": ["1970-1974", "1978-1983", "2008 -2013", "2014 - present"],
+            "Charger": [ "1982-1987", "2006-2010", "2011-2013", "2013 - present"]
+            
+        };
+
+       var images = {
+        //mustangs
+        "1979-1993": "images/foxbody.webp",
+        "1994-2004": "images/cobra.avif",
+        "2005-2014": "images/2014_ford_shelby-gt500.webp",
+        "2015-2021" : "images/Shelby-GT500.jpg",
+        //camaros
+        "1993-2002": "images/1999-chevy-camaro-i01.jpg",
+        "2010-2015": "images/2010Camaro.jpg",
+        "2016 - present": "images/2016Camarowebp.webp",
+        //corvettes
+        "1984-1996": "images/1990Chevrolet.avif",
+        "1997-2004": "images/corvette2003.jpg",
+        "2005-2013": "images/corvette2003.jpg",
+        "2014-2019": "images/corvette-c7.webp",
+        "2019-present": "images/C8.avif",
+        //Challenger
+        "1970-1974": "images/1970challenger.jpg",
+        "1978-1983": "images/1978Challenger.avif",
+        "2008 -2013": "images/SRT8.jpg",
+        "2014 - present": "images/srtHellcat.jpg",
+        //Charger
+        "1982-1987": "images/87chargerwebp.webp",
+        "2006-2010": "images/chargerSRT8.jpg",
+        "2011-2013": "images/13SRT8.jpg",
+        "2013 - present": "images/redeyeCharger.webp"
+        }
+
+        //make init() function for body onload :)
+        function init(){
+            var promptDiv = document.createElement('div'); //creating first div for the select
+
+            var brandSelect = document.createElement('select')
+            brandSelect.setAttribute('id', 'carBrand');
+            brandSelect.setAttribute('onchange', 'updateOptions()');
+
+            var defaultOption = document.createElement("option"); //creating defualt option
+            defaultOption.text = "Choose a Car Manufacturer";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            brandSelect.appendChild(defaultOption);
+            //creating the options
+            var option1 = document.createElement('option');
+            var option2 = document.createElement('option');
+            var option3 = document.createElement('option');
+
+            option1.value = "Ford";
+            option2.value = "Chevrolet";
+            option3.value = "Dodge";
+
+            option1.text = "Ford";
+            option2.text = "Chevrolet";
+            option3.text = "Dodge";
+
+           
+            //appending the options to the select
+            brandSelect.appendChild(option1);
+            brandSelect.appendChild(option2);
+            brandSelect.appendChild(option3);
+            //adding the select to the div
+            promptDiv.appendChild(brandSelect);
+
+            document.getElementsByTagName('body')[0].appendChild(promptDiv);
+
+        }
+
+        
+        var vehicleSelect = null;
+
+       
+        
+
+        function updateOptions() {
+            var brand = document.getElementById("carBrand");//getting the chosen brand value
+            var selectedBrand = brand.value; // setting it to a var
+            
+           
+            
+            if(vehicleSelect){
+               vehicleSelect.parentNode.removeChild(vehicleSelect); //checking if there is already a select so another is not created
+            }
+
+            vehicleSelect = document.createElement("select"); //creating the select element 
+            vehicleSelect.setAttribute('class', 'prompt'); // adding its attributes 
+            vehicleSelect.setAttribute ('id', 'cars');
+
+            vehicleSelect.addEventListener('change', function() { //makes sure the select changes if the the previous selct changes 
+             selectedModel = this.value;
+            
+          
+            });
+
+            var models = carModels[selectedBrand]; // gettting the brand to match the car in the array
+            
+
+            var defaultOption = document.createElement("option"); //creating default option
+            defaultOption.text = "Choose a Model";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+
+            vehicleSelect.appendChild(defaultOption);
+            for (var i = 0; i < models.length; i++) { //looping through models arrray and adding to the select options
+                var option = document.createElement('option');
+                option.value = models[i]; //adding array to the select statement
+                option.text =  models[i]; //adding array to select element 
+                
+                vehicleSelect.appendChild(option);
+                
+           }
+
+
+          
+            vehicleSelect.setAttribute('onchange', 'newSelect()'); //setting the functon onchange for the next select to be created
+            document.getElementsByTagName('body')[0].appendChild(vehicleSelect); 
+           
+            
+        }
+
+
+        var eraSelect = null;
+         
+           //creating next select statement
+        function newSelect(){
+
+            var car = document.getElementById('cars'); //getting the car select
+            var selectedCar = car.value; //getting current car 
+
+           
+
+           if (eraSelect){
+                eraSelect.parentNode.removeChild(eraSelect)
+
+            }
+            
+            eraSelect = document.createElement('select');
+            eraSelect.setAttribute('class', 'prompt');
+            eraSelect.setAttribute('id', 'eras');
+
+            eraSelect.addEventListener('change', function(){ //will change if the previous select is changed to match the value. 
+                selectedEra = this.value;
+                
+           })
+            
+            var eras = carEras[selectedCar]; //matching the selected car to the right Era in the Eras array
+
+            var defaultOption = document.createElement("option"); //creatung default option
+            defaultOption.text = "Choose an Era";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            eraSelect.appendChild(defaultOption);
+
+            for (var i = 0; i < eras.length; i++) {
+                var eraOption = document.createElement('option');//creating options for the Era Select 
+                eraOption.value = eras[i];
+                eraOption.text =  eras[i];
+                eraSelect.appendChild(eraOption);
+
+            }
+
+            eraSelect.setAttribute('onchange', 'displayCar()') //onchange the display car function wil be called to display the chosen car
+            
+            var eraContainer = document.createElement('div'); // Create a container div for eraSelect
+            eraContainer.appendChild(eraSelect); // Append eraSelect to the container
+
+            var body = document.getElementsByTagName('body')[0];
+            body.appendChild(eraContainer);     
+
+          
+            
+            
+            
+        } 
+
+     
+        function displayCar(){
+            var eraSelect = document.getElementById('eras');
+            var selectedEra = eraSelect.value; //getting the selcted car 
+
+            var goButton = document.createElement('button');//creating button to make the car "go"
+            goButton.textContent = " GO!";
+            goButton.id = "goButton";
+            goButton.setAttribute('onclick', 'moveCar()' )
+            
+
+            var imageContainer = document.getElementById('imageContainer'); //creating container for img
+            if(!imageContainer){ //checking if there isnt a container to create on so there is only ever one on the page
+                imageContainer = document.createElement('div');
+                imageContainer.setAttribute('id', 'imageContainer');
+                document.body.appendChild(imageContainer);
+            }
+            
+            var imgURL = images[selectedEra]; //getting current image from the array
+
+            if (imgURL) { //if the url exists make the image
+                var imageElement = document.createElement('img');
+                imageElement.src = imgURL;
+                 imageElement.alt = 'Muscle Car Image';
+        
+        // Clear existing content of imageContainer, if its changed if will remove the existing and change to the current car 
+                while (imageContainer.firstChild) {
+                    imageContainer.removeChild(imageContainer.firstChild);
+                 }
+
+        // Append the new image
+            
+                imageContainer.appendChild(imageElement);
+                imageContainer.appendChild(goButton);
+            //document.getElementsByName('body')[0].appendChild(imageContainer);
+
+            
+        }
+        
+
+        
+    }
+
+   
+    
+
+    function reset(){
+        location.reload(); //reloads page "resets" ps: couldnt find out how to get the logic to cascade backwards with out breaking my code  :(
+    }
+    
+    var duration; //to get track time so I can access in another function 
+    function moveCar(){
+        var carElement = document.querySelector('#imageContainer'); //setting the container of the img to var
+
+        var carSound = document.createElement('audio');//creating audio element 
+        carSound.src = "audio/drag-racing-2-6842.mp3";
+        carSound.setAttribute('id', 'sound');
+        document.getElementsByTagName('body')[0].appendChild(carSound);
+
+        var randTime = Math.floor(Math.random() * (8000 - 2000 + 1)) + 2000; //creating the simulated track time (random 2 -8 sec)
+
+        if (carElement) {
+            var startPosition = 0;
+            var endPosition = window.innerWidth - carElement.clientWidth; // Calculate end pos 
+
+            var startTime = null;
+            carSound.play(); //play sound when the car starts moving 
+
+        function animateCar(timestamp) {
+            if (!startTime) startTime = timestamp;
+                var progress = timestamp - startTime;
+
+                var newPosition = (progress / randTime) * endPosition; // Adjust speed by changing the divisor
+
+            if (newPosition <= endPosition) {
+                carElement.style.transform = 'translateX(' + newPosition + 'px)';// moving the car accross the screen
+                requestAnimationFrame(animateCar); //start animation frame 
+            } else {
+                carElement.style.display = 'none'; //removing the car from the dom
+                carSound.pause(); //pauses once the img has reached the end of the window
+                var endTime = performance.now(); //rounding the time 
+                duration = (endTime - startTime).toFixed(2); //
+                duration = duration/1000;  
+                
+                displayForm();
+                animateFormAppearance();
+            }
+        }
+
+        requestAnimationFrame(animateCar);
+    }
+}
+//creating the take home car
+
+var form;
+var formCreated = false;//flag 
+function displayForm(){
+
+    formCreated =true;// 
+    //creating form 
+    form = document.createElement('form');
+    form.action = "";
+    form.setAttribute('id', 'form');
+    form.setAttribute('onsubmit', 'return validateForm()')
+    //creating labels
+    var nameLabel = document.createElement('label');
+    nameLabel.textContent = 'Name:';
+    var nameInput = document.createElement('input');
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('name', 'name');
+    nameInput.setAttribute('id','nameInput');
+
+    var emailLabel = document.createElement('label');
+    emailLabel.textContent = 'Email:';
+    var emailInput = document.createElement('input');
+    emailInput.setAttribute('type', 'email');
+    emailInput.setAttribute('name', 'email');
+    emailInput.setAttribute('id', 'emailInput');
+
+    var phoneLabel = document.createElement('label');
+    phoneLabel.textContent = 'Phone Number:';
+    var phoneInput = document.createElement('input');
+    phoneInput.setAttribute('type', 'text');
+    phoneInput.setAttribute('name', 'phone');
+    phoneInput.setAttribute('id','phoneInput');
+
+    var submitButton = document.createElement('input');
+    submitButton.setAttribute('type', 'submit');
+    submitButton.setAttribute('value', 'Submit');
+    submitButton.setAttribute('id', "submit");
+
+    var legend = document.createElement('legend'); //creating header for form
+    legendText = document.createTextNode('Sign up to get your Track Time')
+    legend.appendChild(legendText);
+    
+    var time = document.createElement('p');
+    var displayTime = document.createTextNode("0-60 Time: " + duration + 'sec'); //getting track time for global var duration
+    time.appendChild(displayTime);
+
+
+    form.appendChild( legend );
+    form.appendChild(nameLabel);
+    form.appendChild(nameInput);
+    form.appendChild(document.createElement('br'));
+    form.appendChild(emailLabel);
+    form.appendChild(emailInput);
+    form.appendChild(document.createElement('br'));
+    form.appendChild(phoneLabel)
+    form.appendChild(phoneInput);
+    form.appendChild(document.createElement('br'));
+    form.appendChild(time);
+    form.appendChild(document.createElement('br'));
+    form.appendChild(submitButton);
+
+    formCreated =true;
+
+
+    //starts off page for animation
+    
+    form.style.position = 'fixed';
+    form.style.top = '0';
+    form.style.right = '-400px'; 
+    
+    document.getElementsByTagName('body')[0].appendChild(form);
+
+    
+
+
+    
+    
+}
+
+
+function animateFormAppearance() {
+
+    if (!formCreated) {
+        setTimeout(animateFormAppearance, 100); // Retry after a short delay if form is not created yet
+        return;
+    }
+
+    var startTime = null;
+    var duration = 1000; // Animation duration in milliseconds
+
+    function animate(timestamp) {
+
+        if (!startTime) startTime = timestamp;
+        var progress = timestamp - startTime;
+
+        if (progress < duration) {
+            // Calculate the new position based on progress
+            var newPosition = (progress / duration) * 600; // 400px width of the form
+            form.style.right = -400 + newPosition + 'px'; // Slide in from the right
+            requestAnimationFrame(animate);
+        } else {
+            // Ensure the form stays in its final position
+            //form.style.right = '0'; initally i want the form to stay in the right most corner but decided I wanted in further left on the page
+    
+             
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+function validateForm(){
+    "use strict";
+    var isvalid=true; //flag
+    
+
+        
+    if(document.getElementById("nameInput").value == '' &&  document.getElementById("emailInput").value == '' &&
+    document.getElementById("phoneInput").value == ''){
+        document.getElementById("nameInput").style.borderColor="red";
+        document.getElementById("nameInput").style.backgroundColor = 'pink';
+
+        document.getElementById("emailInput").style.borderColor="red";
+        document.getElementById("emailInput").style.backgroundColor = 'pink';
+
+        document.getElementById("phoneInput").style.borderColor="red";
+        document.getElementById("phoneInput").style.backgroundColor = 'pink';
+
+
+        isvalid=false;
+        }
+    else if(document.getElementById("emailInput").value == ''){
+        document.getElementById("emailInput").style.borderColor="red";
+        document.getElementById("emailInput").style.backgroundColor = 'pink';
+        alert('Please enter an email');
+        isvalid=false;
+        }
+        
+    else if(document.getElementById("phoneInput").value == ''){
+        document.getElementById("phoneInput").style.borderColor="red";
+        document.getElementById("phoneInput").style.backgroundColor = 'pink';
+        alert('Please enter a phone number');
+        isvalid=false;
+
+    }   
+
+    if(isvalid){
+        //if the form is correctly filled out put the users info into localStorage
+        storeUserInfo();
+        console.log(ocument.getElementById("nameInput").value);
+    }
+
+    
+    return (isvalid);
+    }
+
+    function storeUserInfo(){
+        //puts the form info into local storage
+        var name = document.getElementById("nameInput").value; //getting all the info from form
+        var email = document.getElementById("emailInput").value;
+        var phone = document.getElementById("phoneInput").value;
+
+        var userInfo = { //creating user info object
+            name: name,
+            email: email,
+            phone: phone
+        };
+
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
+        var info = JSON.stringify(userInfo);
+        //setting the cookie of the user info
+        SetCookie('userInfo', info, 3000);
+
+        
+    }
+    
+
+    function SetCookie (name,value,maxAge,path,domain,sameSite,secure) {
+        document.cookie = name + "=" + escape (value) +
+        ((maxAge) ? ";max-age=" + maxAge  : "") +
+        ((path) ? ";path=" + path  : "") +
+        ((domain) ? ";domain=" + domain : "") +
+        ((sameSite) ? ";samesite=" + sameSite : ";samesite=strict") +
+        ((secure) ? ";secure;" : ";");
+        }
+
+        function getCookieVal (offset) {
+        var endstr = document.cookie.indexOf (";", offset);
+        if (endstr == -1) { endstr = document.cookie.length; }
+        return unescape(document.cookie.substring(offset, endstr));
+	}
+
+function GetCookie (name) {
+	var arg = name + "=";
+	var alen = arg.length;
+	var clen = document.cookie.length;
+	var i = 0;
+	while (i < clen) {
+		var j = i + alen;
+		if (document.cookie.substring(i, j) == arg) {
+			return getCookieVal (j);
+			}
+		i = document.cookie.indexOf(" ", i) + 1;
+		if (i == 0) break; 
+		}
+	return null;
+	}
+
+
+function retrieveUserInfo() {
+    //geting the cookie info based off the form
+    var userInfoString = GetCookie("userInfo");
+
+    if (userInfoString) {
+        return JSON.parse(userInfoString);
+    }
+
+    return null;
+}
+       
+    </script>
+</head>
+<!--
+    Use cookies to store data from form after the selection process
+    let input =  document.getelemetbyID()
+    digv. document .creaete  
+-->
+<body onload="init()">  <!--body onload creates the first select statement by running the init() function-->
+
+    <div class="title">
+        <img src = "graphics/F1_chequered_flag_Animated.gif" class = "gif" alt = "checkered Flag">
+        <h1>Welcome to the Drag Strip</h1>
+    
+        
+    </div>
+  
+    
+    <div>
+        <button  class = "reset" onclick="reset();">Reset</button>
+    </div>
+   
+    <!-- this was the inital first select that is now dynamically created via init() fuca
+    <div class="prompt">
+  
+        <select id="carBrand" onchange="updateOptions()">
+            <option value="Ford">Ford</option>
+            <option value="Chevrolet">Chevrolet</option>
+            <option value="Dodge">Dodge</option>
+            
+        </select>
+
+        
+
+    
+    </div>
+-->
+    
+</body>
+</html>
+
